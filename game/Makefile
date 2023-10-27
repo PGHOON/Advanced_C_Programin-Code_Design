@@ -1,21 +1,15 @@
 CXX = g++
 CXXFLAGS = -std=c++11
 LIBS = -lncurses
-SRC_DIR = src
-EXECUTABLE = game
 
-SRCS = $(wildcard $(SRC_DIR)/*.cpp)
-OBJS = $(SRCS:.cpp=.o)
+SRC = main.cpp ui.cpp
 
-all: $(EXECUTABLE)
+all: game
 
-$(EXECUTABLE): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(EXECUTABLE) $(LIBS)
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@ $(LIBS)
+game: $(SRC)
+	$(CXX) $(CXXFLAGS) -o game $(SRC) $(LIBS)
 
 clean:
-	rm -f $(OBJS) $(EXECUTABLE)
+	rm -f game
 
 .PHONY: all clean
