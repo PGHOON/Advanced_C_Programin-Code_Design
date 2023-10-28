@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++11
 LIBS = -lncurses
 
-SRC = main.cpp ui.cpp
+SRC = main.cpp ui.cpp maze.cpp
 
 all: game
 

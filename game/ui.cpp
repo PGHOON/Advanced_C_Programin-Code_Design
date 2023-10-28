@@ -13,7 +13,7 @@ void UI::initialize() {
 
 void UI::drawBorder(int width, int height) {
     border(0, 0, 0, 0, 0, 0, 0, 0);
-    mvprintw(0, (width - 16) / 2, " Simple NCurses UI ");
+    mvprintw(0, (width - 16) / 2, " Maze test ");
 }
 
 void UI::cleanup() {
