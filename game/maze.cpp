@@ -51,3 +51,12 @@ void Maze::display() {
 bool Maze::isWall(int x, int y) {
     return cell[x][y];
 }
+
+void Maze::movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_PlayerY, Maze& maze) {
+    if (!maze.isWall(next_PlayerX, next_PlayerY)) {
+        playerX = next_PlayerX;
+        playerY = next_PlayerY;
+    }
+    mvaddch(playerY, playerX, '@');
+    refresh();
+}
