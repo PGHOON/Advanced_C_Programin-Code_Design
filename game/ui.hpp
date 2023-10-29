@@ -7,7 +7,8 @@ class UI {
 public:
     UI();
     void initialize();
-    void drawBorder(int option, int width, int height, const std::string& text);
+    void drawBorder(int option, int width, int height, const char *text);
+    void printCursor(int cursor, int width, int height);
     void cleanup();
 };
 
