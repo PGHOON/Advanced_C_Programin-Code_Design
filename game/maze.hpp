@@ -8,6 +8,7 @@ public:
     Maze(int width, int height);
     void generateMaze();
     void display();
+    void TEST_display();
     bool isWall(int x, int y);
     void movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_PlayerY, Maze& maze);
     void keyControl(int &playerX, int &playerY, int &next_PlayerX, int &next_PlayerY, Maze &maze, int ch);

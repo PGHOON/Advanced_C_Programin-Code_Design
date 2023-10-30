@@ -46,7 +46,16 @@ void Maze::display() {
             }
         }
     }
+}
 
+void Maze::TEST_display() {
+    for (int y = 0; y < height_; ++y) {
+        for (int x = 0; x < width_; ++x) {
+            if (cell[x][y]) {
+                mvaddch(y, x+91, ACS_CKBOARD);
+            }
+        }
+    }
 }
 
 bool Maze::isWall(int x, int y) {
