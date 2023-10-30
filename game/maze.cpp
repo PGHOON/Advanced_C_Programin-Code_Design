@@ -52,7 +52,7 @@ void Maze::TEST_display() {
     for (int y = 0; y < height_; ++y) {
         for (int x = 0; x < width_; ++x) {
             if (cell[x][y]) {
-                mvaddch(y, x+91, ACS_CKBOARD);
+                mvaddch(y, x+93, ACS_CKBOARD);
             }
         }
     }
@@ -73,6 +73,7 @@ void Maze::movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_Pla
 
 void Maze::keyControl(int &playerX, int &playerY, int &next_PlayerX, int &next_PlayerY, Maze &maze, int ch) {
     maze.display();
+    maze.TEST_display();
     mvaddch(playerY, playerX, '@');
     switch (ch) {
         case KEY_UP:

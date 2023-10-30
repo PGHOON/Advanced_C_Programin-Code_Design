@@ -15,7 +15,7 @@ void UI::initialize() {
 
 void UI::drawBorder(int option, int width, int height, const char *text) {
     border(0, 0, 0, 0, 0, 0, 0, 0);
-    mvprintw(0, (width - 16) / 2, text);
+    mvprintw(0, width / 2 - 6, text);
     if (option == 0){
         mvprintw((height / 2 + 2), (width - 16) / 2, "EXIT");
         mvprintw((height / 2), (width - 16) / 2, "GAME EXPLAIN");
