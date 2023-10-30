@@ -4,9 +4,6 @@
 #include <stack>
 #include <string>
 
-#define ENTER 10
-
-
 int main() {
     UI ui;
     ui.initialize();
@@ -26,6 +23,7 @@ int main() {
     while ((ch = getch()) != 'q') {
         if (menu == 0){
             clear();
+            curs_set(1);
             ui.drawBorder(0, width, height, " Main menu ");
             ui.menuSelect(cursor, menu, width, height, ui, ch);
         }
@@ -34,7 +32,11 @@ int main() {
             int next_PlayerY = playerY;
             
             maze.keyControl(playerX, playerY, next_PlayerX, next_PlayerY, maze, ch);
-            ui.drawBorder(1, width, height, " Main menu ");
+            ui.drawBorder(1, width, height, " Maze game ");
+        }
+        if (menu == 2){
+            ui.drawBorder(1, width, height, " How to Play ");
+            menu = 0;
         }
     }
 
