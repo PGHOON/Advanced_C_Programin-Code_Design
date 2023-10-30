@@ -27,25 +27,7 @@ int main() {
         if (menu == 0){
             clear();
             ui.drawBorder(0, width, height, " Main menu ");
-
-            switch (ch) {
-                case ENTER:
-                    if (cursor == 0) {menu = 1; curs_set(0); clear();}
-                    break;
-                case KEY_UP:
-                case 'w':
-                    cursor++;
-                    if (cursor >= 3) cursor = 0;
-                    ui.printCursor(cursor, width, height);
-                    break;
-                case KEY_DOWN:
-                case 's':
-                    cursor--;
-                    if (cursor < 0) cursor = 2;
-                    ui.printCursor(cursor, width, height);
-                    
-                    break;
-            }
+            ui.menuSelect(cursor, menu, width, height, ui, ch);
         }
         if (menu == 1){
             int next_PlayerX = playerX;

@@ -28,6 +28,26 @@ void UI::printCursor(int cursor, int width, int height) {
     else if (cursor == 2) mvprintw((height / 2 - 2), (width - 16) / 2, "GAME START");
 }
 
+void UI::menuSelect(int &cursor, int &menu, int width, int height, UI &ui, int ch) {
+    switch (ch) {
+        case 10:
+            if (cursor == 0) {menu = 1; curs_set(0); clear();}
+            break;
+        case KEY_UP:
+        case 'w':
+            cursor++;
+            if (cursor >= 3) cursor = 0;
+            ui.printCursor(cursor, width, height);
+            break;
+        case KEY_DOWN:
+        case 's':
+            cursor--;
+            if (cursor < 0) cursor = 2;
+            ui.printCursor(cursor, width, height);           
+            break;
+    }
+}
+
 void UI::cleanup() {
     endwin();
 }
