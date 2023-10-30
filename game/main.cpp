@@ -4,6 +4,9 @@
 #include <stack>
 #include <string>
 
+#define ENTER 10
+
+
 int main() {
     UI ui;
     ui.initialize();
@@ -26,6 +29,9 @@ int main() {
             ui.drawBorder(0, width, height, " Main menu ");
 
             switch (ch) {
+                case ENTER:
+                    if (cursor == 0) {menu = 1; curs_set(0); clear();}
+                    break;
                 case KEY_UP:
                 case 'w':
                     cursor++;
@@ -41,38 +47,12 @@ int main() {
                     break;
             }
         }
-        else if (menu == 1){
-            curs_set(0);
-            clear();
-            maze.display();
-            ui.drawBorder(1, width, height, " Main menu ");
-            
+        if (menu == 1){
             int next_PlayerX = playerX;
             int next_PlayerY = playerY;
             
-
-            switch (ch) {
-                case KEY_UP:
-                case 'w':
-                    next_PlayerY--;
-                    maze.movePlayer(playerX, playerY, next_PlayerX, next_PlayerY, maze);
-                    break;
-                case KEY_DOWN:
-                case 's':
-                    next_PlayerY++;
-                    maze.movePlayer(playerX, playerY, next_PlayerX, next_PlayerY, maze);
-                    break;
-                case KEY_LEFT:
-                case 'a':
-                    next_PlayerX--;
-                    maze.movePlayer(playerX, playerY, next_PlayerX, next_PlayerY, maze);
-                    break;
-                case KEY_RIGHT:
-                case 'd':
-                    next_PlayerX++;
-                    maze.movePlayer(playerX, playerY, next_PlayerX, next_PlayerY, maze);
-                    break;
-            }
+            maze.keyControl(playerX, playerY, next_PlayerX, next_PlayerY, maze, ch);
+            ui.drawBorder(1, width, height, " Main menu ");
         }
     }
 

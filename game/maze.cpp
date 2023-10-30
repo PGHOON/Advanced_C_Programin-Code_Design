@@ -46,6 +46,7 @@ void Maze::display() {
             }
         }
     }
+
 }
 
 bool Maze::isWall(int x, int y) {
@@ -59,4 +60,39 @@ void Maze::movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_Pla
     }
     mvaddch(playerY, playerX, '@');
     refresh();
+}
+
+void Maze::keyControl(int &playerX, int &playerY, int &next_PlayerX, int &next_PlayerY, Maze &maze, int ch) {
+    maze.display();
+    mvaddch(playerY, playerX, '@');
+    switch (ch) {
+        case KEY_UP:
+        case 'w':
+            clear();
+            maze.display();
+            next_PlayerY--;
+            maze.movePlayer(playerX, playerY, next_PlayerX, next_PlayerY, maze);
+            break;
+        case KEY_DOWN:
+        case 's':
+            clear();
+            maze.display();
+            next_PlayerY++;
+            maze.movePlayer(playerX, playerY, next_PlayerX, next_PlayerY, maze);
+            break;
+        case KEY_LEFT:
+        case 'a':
+            clear();
+            maze.display();
+            next_PlayerX--;
+            maze.movePlayer(playerX, playerY, next_PlayerX, next_PlayerY, maze);
+            break;
+        case KEY_RIGHT:
+        case 'd':
+            clear();
+            maze.display();
+            next_PlayerX++;
+            maze.movePlayer(playerX, playerY, next_PlayerX, next_PlayerY, maze);
+            break;
+    }
 }
