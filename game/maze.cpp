@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <random>
 
-Maze::Maze(int width, int height) : width_(width), height_(height) {
+Maze::Maze(int width, int height) : width_(width), height_(height), goal(width - 2, height - 2) {
     cell.resize(width_, std::vector<bool>(height_, true));
 }
 
@@ -62,10 +62,17 @@ bool Maze::isWall(int x, int y) {
     return cell[x][y];
 }
 
+bool Maze::isGoal(int x, int y) {
+    return std::make_pair(x, y) == goal;
+}
+
 void Maze::movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_PlayerY, Maze& maze) {
     if (!maze.isWall(next_PlayerX, next_PlayerY)) {
         playerX = next_PlayerX;
         playerY = next_PlayerY;
+    }
+    if (maze.isGoal(playerX, playerY)) {
+        mvprintw(playerY, playerX, "game clear");
     }
     mvaddch(playerY, playerX, '@');
     refresh();

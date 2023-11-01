@@ -10,12 +10,14 @@ public:
     void display();
     void TEST_display();
     bool isWall(int x, int y);
+    bool isGoal(int x, int y);
     void movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_PlayerY, Maze& maze);
     void keyControl(int &playerX, int &playerY, int &next_PlayerX, int &next_PlayerY, Maze &maze, int ch);
 private:
     int width_;
     int height_;
     std::vector<std::vector<bool>> cell;
+    std::pair<int, int> goal;
 };
 
 #endif
