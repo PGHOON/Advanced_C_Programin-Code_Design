@@ -66,6 +66,10 @@
         "algorithm": "cpp",
         "iostream": "cpp",
         "numeric": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "__tree": "cpp",
+        "map": "cpp",
+        "queue": "cpp",
+        "set": "cpp"
     }
 }

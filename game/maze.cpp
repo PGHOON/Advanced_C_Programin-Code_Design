@@ -18,6 +18,8 @@ void Maze::generateMaze() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::stack<std::pair<int, int>> stack;
+    std::vector<std::pair<int, int>> directions = {{2, 0}, {-2, 0}, {0, 2}, {0, -2}};
+    std::vector<std::pair<int, int>> neighbors;
 
     int x = 1, y = 1;
     cell[x][y] = false;
@@ -25,17 +27,13 @@ void Maze::generateMaze() {
     stack.push({x, y});
 
     while (!stack.empty()) {
-      std::tie(x, y) = stack.top();
-        std::vector<std::pair<int, int>> neighbors;
+        std::tie(x, y) = stack.top();
+        neighbors.clear();
 
-        for (int dx = -2; dx <= 2; dx += 2) {
-            for (int dy = -2; dy <= 2; dy += 2) {
-                if (dx == 0 || dy == 0) {
-                    int nx = x + dx, ny = y + dy;
-                    if (nx >= 1 && nx < width_ - 1 && ny >= 1 && ny < height_ - 1 && cell[nx][ny]) {
-                        neighbors.push_back({nx, ny});
-                    }
-                }
+        for (const auto& dir : directions) {
+            int nx = x + dir.first, ny = y + dir.second;
+            if (nx >= 1 && nx < width_ - 1 && ny >= 1 && ny < height_ - 1 && cell[nx][ny]) {
+                neighbors.push_back({nx, ny});
             }
         }
 
@@ -51,6 +49,7 @@ void Maze::generateMaze() {
         }
     }
 }
+
 
 void Maze::agent_BFS(Maze &maze) {
     std::pair<int, int> start = {1, 1};
