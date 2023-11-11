@@ -34,6 +34,7 @@ int main() {
             maze.keyControl(playerX, playerY, next_PlayerX, next_PlayerY, maze, ch);
             ui.drawWall(height);
             ui.drawBorder(1, width, height, " Maze  game ");
+            maze.agent_BFS(maze);
         }
         if (menu == 2){
             ui.drawBorder(1, width, height, " How to Play ");
