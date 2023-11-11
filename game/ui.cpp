@@ -8,6 +8,8 @@ UI::UI() {
     start_color();
     use_default_colors();
     init_pair(1, COLOR_RED, -1);
+    init_pair(2, -1, COLOR_CYAN);
+    init_pair(3, COLOR_WHITE, COLOR_WHITE);
 }
 
 void UI::initialize() {
