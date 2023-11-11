@@ -79,7 +79,7 @@ void Maze::agent_BFS(Maze &maze) {
 
         for (const auto &dir : directions) {
             std::pair<int, int> next = {current.first + dir.first, current.second + dir.second};
-            if (maze.isWall(!next.first, next.second) && parent.find(next) == parent.end()) {
+            if (maze.isValid(next.first, next.second) && parent.find(next) == parent.end()) {
                 parent[next] = current;
                 q.push(next);
             }
@@ -120,6 +120,10 @@ bool Maze::isWall(int x, int y) {
 
 bool Maze::isGoal(int x, int y) {
     return std::make_pair(x, y) == goal;
+}
+
+bool Maze::isValid(int x, int y) {
+    return x >= 1 && x < width_ - 1 && y >= 1 && y < height_ - 1 && !isWall(x, y);
 }
 
 void Maze::movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_PlayerY, Maze& maze) {
