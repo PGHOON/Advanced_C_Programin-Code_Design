@@ -39,8 +39,8 @@ void Maze::generateMaze() {
 }
 
 void Maze::display() {
-    for (int y = 0; y < height_; ++y) {
-        for (int x = 0; x < width_; ++x) {
+    for (int y = 1; y < height_ - 1; ++y) {
+        for (int x = 1; x < width_ - 1; ++x) {
             if (cell[x][y]) {
                 mvaddch(y, x, ACS_CKBOARD);
                 mvaddch(y, x+93, ACS_CKBOARD);

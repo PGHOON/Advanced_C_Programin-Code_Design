@@ -32,6 +32,7 @@ int main() {
             int next_PlayerY = playerY;
             
             maze.keyControl(playerX, playerY, next_PlayerX, next_PlayerY, maze, ch);
+            ui.drawWall(height);
             ui.drawBorder(1, width, height, " Maze  game ");
         }
         if (menu == 2){

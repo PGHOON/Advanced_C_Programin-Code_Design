@@ -23,6 +23,14 @@ void UI::drawBorder(int option, int width, int height, const char *text) {
     }
 }
 
+void UI::drawWall(int height) {
+    border(0, 0, 0, 0, 0, 0, 0, 0);
+    for (int y = 1; y < height - 1; ++y) {
+        mvaddch(y, 88, ACS_VLINE);
+        mvaddch(y, 93, ACS_VLINE);
+    }
+}
+
 void UI::printCursor(int cursor, int width, int height) {
     if (cursor == 2) mvprintw((height / 2 + 2), (width - 16) / 2, "EXIT");
     if (cursor == 1) mvprintw((height / 2), (width - 16) / 2, "GAME EXPLAIN");
