@@ -11,32 +11,47 @@ Maze::Maze(int width, int height) : width_(width), height_(height), goal(width -
 }
 
 void Maze::generateMaze() {
-    std::stack<std::pair<int, int>> stack;
-    stack.push({1, 1});
-
-    std::vector<int> directions = {1, 0, -1, 0, 0, 1, 0, -1};
+    for (auto &row : cell) {
+        std::fill(row.begin(), row.end(), true);
+    }
 
     std::random_device rd;
     std::mt19937 gen(rd());
+    std::stack<std::pair<int, int>> stack;
+    
+    int x = 1, y = 1;
+    cell[x][y] = false;
+    stack.push({x, y});
 
     while (!stack.empty()) {
-        int x, y;
         std::tie(x, y) = stack.top();
-        cell[x][y] = false;
-        stack.pop();
+        std::vector<std::pair<int, int>> neighbors;
 
-        std::shuffle(directions.begin(), directions.end(), gen);
-
-        for (int i = 0; i < 4; i++) {
-            int nx = x + directions[i * 2];
-            int ny = y + directions[i * 2 + 1];
-            if (nx >= 1 && nx < width_ - 1 && ny >= 1 && ny < height_ - 1 && cell[nx][ny]) {
-                stack.push({nx, ny});
-                cell[(x + nx) / 2][(y + ny) / 2] = false;
+        for (int dx = -2; dx <= 2; dx += 2) {
+            for (int dy = -2; dy <= 2; dy += 2) {
+                if (dx == 0 || dy == 0) {
+                    int nx = x + dx, ny = y + dy;
+                    if (nx >= 1 && nx < width_ - 1 && ny >= 1 && ny < height_ - 1 && cell[nx][ny]) {
+                        neighbors.push_back({nx, ny});
+                    }
+                }
             }
+        }
+
+        if (!neighbors.empty()) {
+            std::shuffle(neighbors.begin(), neighbors.end(), gen);
+            std::pair<int, int> next = neighbors.front();
+
+            cell[(x + next.first) / 2][(y + next.second) / 2] = false;
+            cell[next.first][next.second] = false;
+
+            stack.push(next);
+        } else {
+            stack.pop();
         }
     }
 }
+
 
 void Maze::display() {
     for (int y = 1; y < height_ - 1; ++y) {
