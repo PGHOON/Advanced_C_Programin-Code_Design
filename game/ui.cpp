@@ -5,6 +5,9 @@
 
 UI::UI() {
     initscr();
+    start_color();
+    use_default_colors();
+    init_pair(1, COLOR_RED, -1);
 }
 
 void UI::initialize() {

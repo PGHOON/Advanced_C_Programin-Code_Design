@@ -84,13 +84,17 @@ void Maze::movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_Pla
         */
         mvprintw(playerY, playerX, "game clear");
     }
+    attron(COLOR_PAIR(1));
     mvaddch(playerY, playerX, '@');
+    attroff(COLOR_PAIR(1));
     refresh();
 }
 
 void Maze::keyControl(int &playerX, int &playerY, int &next_PlayerX, int &next_PlayerY, Maze &maze, int ch) {
     maze.display();
+    attron(COLOR_PAIR(1));
     mvaddch(playerY, playerX, '@');
+    attroff(COLOR_PAIR(1));
     switch (ch) {
         case KEY_UP:
         case 'w':
