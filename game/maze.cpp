@@ -15,27 +15,24 @@ Maze::Maze(int width, int height) : width_(width), height_(height), goal(width -
 }
 
 void Maze::generateMaze() {
-    for (auto &row : cell) {
-        std::fill(row.begin(), row.end(), true);
-    }
-
     std::random_device rd;
     std::mt19937 gen(rd());
     std::stack<std::pair<int, int>> stack;
-    
+
     int x = 1, y = 1;
     cell[x][y] = false;
+    cell[width_ - 2][height_ - 2] = false;
     stack.push({x, y});
 
     while (!stack.empty()) {
-        std::tie(x, y) = stack.top();
+      std::tie(x, y) = stack.top();
         std::vector<std::pair<int, int>> neighbors;
 
         for (int dx = -2; dx <= 2; dx += 2) {
             for (int dy = -2; dy <= 2; dy += 2) {
                 if (dx == 0 || dy == 0) {
                     int nx = x + dx, ny = y + dy;
-                    if (nx >= 1 && nx < width_ - 1 && ny >= 1 && ny < height_ && cell[nx][ny]) {
+                    if (nx >= 1 && nx < width_ - 1 && ny >= 1 && ny < height_ - 1 && cell[nx][ny]) {
                         neighbors.push_back({nx, ny});
                     }
                 }
@@ -48,7 +45,6 @@ void Maze::generateMaze() {
 
             cell[(x + next.first) / 2][(y + next.second) / 2] = false;
             cell[next.first][next.second] = false;
-
             stack.push(next);
         } else {
             stack.pop();
@@ -57,7 +53,7 @@ void Maze::generateMaze() {
 }
 
 void Maze::agent_BFS(Maze &maze) {
-    std::pair<int, int> start = {1, 1};  // Starting point
+    std::pair<int, int> start = {1, 1};
     std::queue<std::pair<int, int>> q;
     std::map<std::pair<int, int>, std::pair<int, int>> parent;
     std::set<std::pair<int, int>> path;
@@ -79,7 +75,7 @@ void Maze::agent_BFS(Maze &maze) {
 
         for (const auto &dir : directions) {
             std::pair<int, int> next = {current.first + dir.first, current.second + dir.second};
-            if (maze.isValid(next.first, next.second) && parent.find(next) == parent.end()) {
+            if (!maze.isWall(next.first, next.second) && parent.find(next) == parent.end()) {
                 parent[next] = current;
                 q.push(next);
             }
@@ -120,10 +116,6 @@ bool Maze::isWall(int x, int y) {
 
 bool Maze::isGoal(int x, int y) {
     return std::make_pair(x, y) == goal;
-}
-
-bool Maze::isValid(int x, int y) {
-    return x >= 1 && x < width_ - 1 && y >= 1 && y < height_ - 1 && !isWall(x, y);
 }
 
 void Maze::movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_PlayerY, Maze& maze) {

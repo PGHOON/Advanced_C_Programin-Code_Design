@@ -11,7 +11,6 @@ public:
     void display();
     bool isWall(int x, int y);
     bool isGoal(int x, int y);
-    bool isValid(int x, int y);
     void movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_PlayerY, Maze& maze);
     void keyControl(int &playerX, int &playerY, int &next_PlayerX, int &next_PlayerY, Maze &maze, int ch);
 
