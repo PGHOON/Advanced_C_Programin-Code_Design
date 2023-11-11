@@ -31,7 +31,7 @@ void Maze::generateMaze() {
             for (int dy = -2; dy <= 2; dy += 2) {
                 if (dx == 0 || dy == 0) {
                     int nx = x + dx, ny = y + dy;
-                    if (nx >= 1 && nx < width_ - 1 && ny >= 1 && ny < height_ - 1 && cell[nx][ny]) {
+                    if (nx >= 1 && nx < width_ - 1 && ny >= 1 && ny < height_ && cell[nx][ny]) {
                         neighbors.push_back({nx, ny});
                     }
                 }
@@ -79,6 +79,9 @@ void Maze::movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_Pla
         playerY = next_PlayerY;
     }
     if (maze.isGoal(playerX, playerY)) {
+        /*
+        클리어시 화면에 대한 부분
+        */
         mvprintw(playerY, playerX, "game clear");
     }
     mvaddch(playerY, playerX, '@');
