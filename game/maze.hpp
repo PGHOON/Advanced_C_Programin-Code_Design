@@ -1,6 +1,4 @@
 #include <vector>
-#include <set>
-#include <vector>
 #include <cstdlib>
 #include <ncurses.h>
 #include <stack>
@@ -10,6 +8,8 @@
 #include <map>
 #include <queue>
 #include <set>
+#include <thread>
+#include <mutex>
 
 #ifndef MAZE_HPP
 #define MAZE_HPP
@@ -33,6 +33,7 @@ private:
     int height_;
     vector<vector<bool>> cell;
     pair<int, int> goal;
+    mutex mutex;
 };
 
 #endif

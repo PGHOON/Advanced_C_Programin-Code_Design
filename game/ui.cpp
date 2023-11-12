@@ -1,4 +1,3 @@
-#include <ncurses.h>
 #include "ui.hpp"
 #define ENTER 10
 
