@@ -10,16 +10,21 @@
 #include <queue>
 #include <set>
 
-Maze::Maze(int width, int height) : width_(width), height_(height), goal(width - 2, height - 2) {
-    cell.resize(width_, std::vector<bool>(height_, true));
+using namespace std;
+
+Maze::Maze(int width, int height) {
+    width_ = (width);
+    height_ = (height);
+    goal = make_pair(width - 2, height - 2);
+    cell.resize(width_, vector<bool>(height_, true));
 }
 
 void Maze::generateMaze() {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::stack<std::pair<int, int>> stack;
-    std::vector<std::pair<int, int>> directions = {{2, 0}, {-2, 0}, {0, 2}, {0, -2}};
-    std::vector<std::pair<int, int>> neighbors;
+    random_device rd;
+    mt19937 gen(rd());
+    stack<pair<int, int>> stack;
+    vector<pair<int, int>> directions = {{2, 0}, {-2, 0}, {0, 2}, {0, -2}};
+    vector<pair<int, int>> neighbors;
 
     int x = 1, y = 1;
     cell[x][y] = false;
@@ -27,7 +32,7 @@ void Maze::generateMaze() {
     stack.push({x, y});
 
     while (!stack.empty()) {
-        std::tie(x, y) = stack.top();
+        tie(x, y) = stack.top();
         neighbors.clear();
 
         for (const auto& dir : directions) {
@@ -38,8 +43,8 @@ void Maze::generateMaze() {
         }
 
         if (!neighbors.empty()) {
-            std::shuffle(neighbors.begin(), neighbors.end(), gen);
-            std::pair<int, int> next = neighbors.front();
+            shuffle(neighbors.begin(), neighbors.end(), gen);
+            pair<int, int> next = neighbors.front();
 
             cell[(x + next.first) / 2][(y + next.second) / 2] = false;
             cell[next.first][next.second] = false;
@@ -52,28 +57,28 @@ void Maze::generateMaze() {
 
 
 void Maze::agent_BFS(Maze &maze) {
-    std::pair<int, int> start = {1, 1};
-    std::queue<std::pair<int, int>> q;
-    std::map<std::pair<int, int>, std::pair<int, int>> parent;
-    std::set<std::pair<int, int>> path;
-    std::vector<std::pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    pair<int, int> start = {1, 1};
+    queue<pair<int, int>> q;
+    map<pair<int, int>, pair<int, int>> parent;
+    set<pair<int, int>> path;
+    vector<pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     q.push(start);
     parent[start] = {-1, -1};
 
     while (!q.empty()) {
-        std::pair<int, int> current = q.front();
+        pair<int, int> current = q.front();
         q.pop();
 
         if (maze.isGoal(current.first, current.second)) {
-            for (std::pair<int, int> at = current; at != std::make_pair(-1, -1); at = parent[at]) {
+            for (pair<int, int> at = current; at != make_pair(-1, -1); at = parent[at]) {
                 path.insert(at);
             }
             break;
         }
 
         for (const auto &dir : directions) {
-            std::pair<int, int> next = {current.first + dir.first, current.second + dir.second};
+            pair<int, int> next = {current.first + dir.first, current.second + dir.second};
             if (!maze.isWall(next.first, next.second) && parent.find(next) == parent.end()) {
                 parent[next] = current;
                 q.push(next);
@@ -97,7 +102,7 @@ void Maze::display() {
     }
 }
 
-void Maze::agent_display(const std::set<std::pair<int, int>>& path) {
+void Maze::agent_display(const set<pair<int, int>>& path) {
     for (int y = 1; y < height_ - 1; ++y) {
         for (int x = 1; x < width_ - 1; ++x) {
             if (path.find({x, y}) != path.end()) {
@@ -114,7 +119,7 @@ bool Maze::isWall(int x, int y) {
 }
 
 bool Maze::isGoal(int x, int y) {
-    return std::make_pair(x, y) == goal;
+    return make_pair(x, y) == goal;
 }
 
 void Maze::movePlayer(int& playerX, int& playerY, int next_PlayerX, int next_PlayerY, Maze& maze) {
