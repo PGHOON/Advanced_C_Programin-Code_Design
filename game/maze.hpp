@@ -27,6 +27,7 @@ public:
     void keyControl(int &playerX, int &playerY, int &next_PlayerX, int &next_PlayerY, Maze &maze, int ch);
 
     void agent_BFS(Maze &maze);
+    void agent_DFS(Maze &maze);
     void agent_display(const set<pair<int, int>>& path);
 private:
     int width_;

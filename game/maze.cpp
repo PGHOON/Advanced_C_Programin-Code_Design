@@ -79,6 +79,39 @@ void Maze::agent_BFS(Maze &maze) {
     displayThread.detach();
 }
 
+void Maze::agent_DFS(Maze &maze) {
+    pair<int, int> start = {1, 1};
+    stack<pair<int, int>> s;
+    map<pair<int, int>, pair<int, int>> parent;
+    set<pair<int, int>> path;
+    vector<pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+    s.push(start);
+    parent[start] = {-1, -1};
+
+    while (!s.empty()) {
+        pair<int, int> current = s.top();
+        s.pop();
+
+        if (maze.isGoal(current.first, current.second)) {
+            for (pair<int, int> at = current; at != make_pair(-1, -1); at = parent[at]) {
+                path.insert(at);
+            }
+            break;
+        }
+
+        for (const auto &dir : directions) {
+            pair<int, int> next = {current.first + dir.first, current.second + dir.second};
+            if (!maze.isWall(next.first, next.second) && parent.find(next) == parent.end()) {
+                parent[next] = current;
+                s.push(next);
+            }
+        }
+    }
+    thread displayThread(&Maze::agent_display, this, path);
+    displayThread.detach();
+}
+
 void Maze::display() {
     for (int y = 1; y < height_ - 1; ++y) {
         for (int x = 1; x < width_ - 1; ++x) {
