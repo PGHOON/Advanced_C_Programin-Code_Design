@@ -1,4 +1,5 @@
 #include <string>
+#include <ncurses.h>
 
 #ifndef UI_HPP
 #define UI_HPP

@@ -1,14 +1,4 @@
 #include "maze.hpp"
-#include <vector>
-#include <cstdlib>
-#include <ncurses.h>
-#include <stack>
-#include <algorithm>
-#include <random>
-#include <tuple>
-#include <map>
-#include <queue>
-#include <set>
 
 using namespace std;
 
@@ -87,7 +77,6 @@ void Maze::agent_BFS(Maze &maze) {
     }
     maze.agent_display(path);
 }
-
 
 void Maze::display() {
     for (int y = 1; y < height_ - 1; ++y) {

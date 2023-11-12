@@ -1,5 +1,15 @@
 #include <vector>
 #include <set>
+#include <vector>
+#include <cstdlib>
+#include <ncurses.h>
+#include <stack>
+#include <algorithm>
+#include <random>
+#include <tuple>
+#include <map>
+#include <queue>
+#include <set>
 
 #ifndef MAZE_HPP
 #define MAZE_HPP

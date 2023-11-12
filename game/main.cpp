@@ -1,8 +1,5 @@
-#include <ncurses.h>
 #include "ui.hpp"
 #include "maze.hpp"
-#include <stack>
-#include <string>
 
 int main() {
     UI ui;
