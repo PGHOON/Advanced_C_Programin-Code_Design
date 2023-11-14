@@ -34,7 +34,7 @@ private:
     int height_;
     vector<vector<bool>> cell;
     pair<int, int> goal;
-    mutex mutex;
+    mutex mt;
 };
 
 #endif

@@ -129,12 +129,12 @@ void Maze::agent_display(const set<pair<int, int>>& path) {
     for (int y = 1; y < height_ - 1; ++y) {
         for (int x = 1; x < width_ - 1; ++x) {
             if (path.find({x, y}) != path.end()) {
-                mutex.lock();
+                mt.lock();
                 attron(COLOR_PAIR(2));
                 mvaddch(y, x+93, ' ');
                 attroff(COLOR_PAIR(2));
                 refresh();
-                mutex.unlock();
+                mt.unlock();
                 this_thread::sleep_for(chrono::seconds(1));
             }
         }
