@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <cstdlib>
 #include <ncurses.h>
@@ -10,9 +11,6 @@
 #include <set>
 #include <thread>
 #include <mutex>
-
-#ifndef MAZE_HPP
-#define MAZE_HPP
 
 using namespace std;
 
@@ -36,5 +34,3 @@ private:
     pair<int, int> goal;
     mutex mt;
 };
-
-#endif

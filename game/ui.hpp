@@ -1,8 +1,6 @@
+#pragma once
 #include <string>
 #include <ncurses.h>
-
-#ifndef UI_HPP
-#define UI_HPP
 
 class UI {
 public:
@@ -14,5 +12,3 @@ public:
     void menuSelect(int &cursor, int &menu, int width, int height, UI &ui, int ch);
     void cleanup();
 };
-
-#endif
