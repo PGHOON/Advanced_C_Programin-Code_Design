@@ -8,7 +8,6 @@
 #include <tuple>
 #include <map>
 #include <queue>
-#include <set>
 #include <thread>
 #include <mutex>
 
@@ -26,7 +25,7 @@ public:
 
     void agent_BFS(Maze &maze);
     void agent_DFS(Maze &maze);
-    void agent_display(const set<pair<int, int>>& path);
+    void agent_display(const vector<pair<int, int>>& path);
 private:
     int width_;
     int height_;

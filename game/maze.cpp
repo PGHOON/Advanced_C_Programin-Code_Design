@@ -50,7 +50,7 @@ void Maze::agent_BFS(Maze &maze) {
     pair<int, int> start = {1, 1};
     queue<pair<int, int>> q;
     map<pair<int, int>, pair<int, int>> parent;
-    set<pair<int, int>> path;
+    vector<pair<int, int>> path;
     vector<pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     q.push(start);
@@ -62,8 +62,9 @@ void Maze::agent_BFS(Maze &maze) {
 
         if (maze.isGoal(current.first, current.second)) {
             for (pair<int, int> at = current; at != make_pair(-1, -1); at = parent[at]) {
-                path.insert(at);
+                path.push_back(at);
             }
+            reverse(path.begin(), path.end());
             break;
         }
 
@@ -83,7 +84,7 @@ void Maze::agent_DFS(Maze &maze) {
     pair<int, int> start = {1, 1};
     stack<pair<int, int>> s;
     map<pair<int, int>, pair<int, int>> parent;
-    set<pair<int, int>> path;
+    vector<pair<int, int>> path;
     vector<pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
     s.push(start);
@@ -95,8 +96,9 @@ void Maze::agent_DFS(Maze &maze) {
 
         if (maze.isGoal(current.first, current.second)) {
             for (pair<int, int> at = current; at != make_pair(-1, -1); at = parent[at]) {
-                path.insert(at);
+                path.push_back(at);
             }
+            reverse(path.begin(), path.end());
             break;
         }
 
@@ -125,19 +127,18 @@ void Maze::display() {
     }
 }
 
-void Maze::agent_display(const set<pair<int, int>>& path) {
-    for (int y = 1; y < height_ - 1; ++y) {
-        for (int x = 1; x < width_ - 1; ++x) {
-            if (path.find({x, y}) != path.end()) {
-                mt.lock();
-                attron(COLOR_PAIR(2));
-                mvaddch(y, x+93, ' ');
-                attroff(COLOR_PAIR(2));
-                refresh();
-                mt.unlock();
-                this_thread::sleep_for(chrono::seconds(1));
-            }
-        }
+void Maze::agent_display(const vector<pair<int, int>>& path) {
+    for (const auto& p : path) {
+        int x = p.first;
+        int y = p.second;
+
+        mt.lock();
+        attron(COLOR_PAIR(2));
+        mvaddch(y, x+93, ' ');
+        attroff(COLOR_PAIR(2));
+        refresh();
+        mt.unlock();
+        this_thread::sleep_for(chrono::milliseconds(100));  // 경로 출력 속도 조절
     }
 }
 
